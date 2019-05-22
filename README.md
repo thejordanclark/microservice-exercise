@@ -3,7 +3,7 @@
 Lab 6.5
 
 ~~~
-export LOCALIP=10.0.1.113
+export LOCALIP=10.0.1.??
 docker tag shekhar/stockmanager:1.0 ${LOCALIP}:5000/shekhar/stockmanager:1.0
 docker tag shekhar/productcatalogue:1.0 ${LOCALIP}:5000/shekhar/productcatalogue:1.0
 docker tag shekhar/shopfront:1.0 ${LOCALIP}:5000/shekhar/shopfront:1.0
