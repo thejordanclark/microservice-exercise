@@ -5,7 +5,6 @@
 #### SSH to the Ubuntu machine
 ```bash
 ssh username@FQDN
-sudo su -
 ```
 
 #### Install docker
@@ -112,7 +111,6 @@ kubectl get node -o wide
 
 ```bash
 ssh username@FQDN
-sudo su -
 ```
 
 #### Check docker and image pull
