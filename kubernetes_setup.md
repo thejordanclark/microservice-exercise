@@ -2,10 +2,13 @@
 
 ## * Setting up the machine
 
-#### SSH to the Ubuntu machine
+#### SSH to the Ubuntu machine (Mac or Linux)
 ```bash
 ssh username@FQDN
 ```
+
+#### SSH to the Ubuntu machine (Windows)
+Utilize Putty to connect to the host
 
 #### Install docker
 Docker is pre-installed on the AWS instance.
@@ -107,11 +110,14 @@ kubectl get node -o wide
 
 ## Add additional Node to cluster
 
-#### SSH to the additional node
-
+#### SSH to the Ubuntu machine (Mac or Linux)
 ```bash
 ssh username@FQDN
 ```
+
+#### SSH to the Ubuntu machine (Windows)
+Utilize Putty to connect to the host
+
 
 #### Check docker and image pull
 ```bash
