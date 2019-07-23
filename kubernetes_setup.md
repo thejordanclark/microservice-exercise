@@ -239,22 +239,20 @@ docker run -d -p 5000:5000 --restart always --name registry registry:2
 ```
 <br>
 
-#### To all machines in the cluster, add the below
-To the file '/usr/lib/systemd/system/docker.service'<br>
-`ExecStart=/usr/bin/dockerd --insecure-registry ip1:5000`
+#### To all machines in the cluster, append '--insecure-registry <IP>:5000' to the docker service file.
+To the file '/lib/systemd/system/docker.service'
 
+the line that starts with `ExecStart=` should look like with the adjusted IP address:
 <br>
+`ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry 10.0.1.100:5000`
 
-To the file '/etc/docker/daemon.json'<br>
-` { "insecure-registries":["ip1:5000"] }`
+You can use vim or nano to edit that file.
 
 <br>
 
 #### Reload
 ```bash
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 <br>
-
-The kubernetes cluster has been installed successfully.
