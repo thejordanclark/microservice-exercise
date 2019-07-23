@@ -243,6 +243,16 @@ docker run -d -p 5000:5000 --restart always --name registry registry:2
 ```
 <br>
 
+The IP of the host can be found by running on the host you started the registry on:
+```bash
+ip addr show dev ens5
+```
+
+The same IP should be visible when viewing the kubernetes nodes with the wide option as one of the nodes:
+```bash
+kubectl get node -o wide
+```
+
 #### To all machines in the cluster, append '--insecure-registry <IP>:5000' to the docker service file.
 To the file '/lib/systemd/system/docker.service'
 
