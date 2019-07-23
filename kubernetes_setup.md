@@ -14,7 +14,7 @@ Docker is pre-installed on the AWS instance.
 [Docker Install Instructions](https://docs.docker.com/install/)
 
 #### Install docker-compose
-Docker-compose is pre-installed on the AWS instance.
+Docker-compose is pre-installed on the AWS instance.  It is needed for the initial lab but not for kubernetes
 
 [Docker Compose Install Instructions](https://docs.docker.com/compose/install/)
 
@@ -59,21 +59,21 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 #### Note a similar message message.
 
 > Your Kubernetes control-plane has initialized successfully!
-> 
+>
 > To start using your cluster, you need to run the following as a regular user:
-> 
+>
 >   mkdir -p $HOME/.kube
 >   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 >   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-> 
+>
 > You should now deploy a pod network to the cluster.
 > Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 >   https://kubernetes.io/docs/concepts/cluster-administration/addons/
-> 
+>
 > Then you can join any number of worker nodes by running the following on each as root:
-> 
+>
 > kubeadm join 10.0.1.200:6443 --token suzcgn.pobqnfn1k4bc27yh \
->     --discovery-token-ca-cert-hash sha256:a7119208ef33b7a7682c7b91391a0ba32e276de37d8da41c64c18db3c5babcc5 
+>     --discovery-token-ca-cert-hash sha256:a7119208ef33b7a7682c7b91391a0ba32e276de37d8da41c64c18db3c5babcc5
 >
 
 ### Check the status of kubelet
@@ -106,8 +106,71 @@ kubectl get node -o wide
 
 <br>
 
+## Add additional Node to cluster
 
-## Notes
+#### SSH to the additional node
+
+```bash
+ssh username@FQDN
+sudo su -
+```
+
+#### Check docker and image pull
+```bash
+docker version
+systemctl status docker
+docker pull alpine
+```
+
+## * Install kubeadm (This step is for all nodes in the cluster)
+[Kubeadm Official Installation](https://kubernetes.io/docs/setup/independent/install-kubeadm/)
+
+```bash
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+```
+<br>
+
+
+```bash
+sudo apt install -y kubeadm
+```
+
+<br>
+
+## Disable Swap
+
+Swap should be disabled on Kubernetes Nodes
+
+```bash
+sudo swapoff -a
+```
+<br>
+
+## Join the node to the cluster
+
+First we need the join command from the master node.  On the master node run this command to show the join command.
+```bash
+kubeadm token create --print-join-command
+```
+
+Then back on the new node run the outputted command prefixed with sudo. For example:
+```bash
+sudo kubeadm join 10.0.1.100:6443 --token dys5qt.9jibqpi4giypbz5c     --discovery-token-ca-cert-hash sha256:a7119208ef33b7a7682c7b91391a0ba32e276de37d8da41c64c18db3c5babcc5
+```
+
+## Verify the new nodes
+
+remember all kubectl commands is our example should be run from the master node.
+
+### On the master node ask kubernetes to print the nodes
+```bash
+kubectl get node -o wide
+```
+
+<br>
+
+# Notes
 
 #### If running as root Set KUBECONFIG environment variable
 ```bash
@@ -164,6 +227,7 @@ kubectl get serviceaccounts --all-namespaces -o wide
 ```
 
 <br>
+
 
 ## * Setup docker private registry
 
