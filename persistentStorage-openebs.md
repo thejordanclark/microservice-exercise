@@ -1,5 +1,6 @@
 # Add Persistent storage with OpenEBS
 
+Following are the basic steps to setup OpenEBS as a Persistent Volume provider for Kubernetes.  Much more info can be found on the [official documentation](https://docs.openebs.io/).
 
 ## iSCSI
 OpenEBS provides block volume support through the iSCSI protocol. Therefore, the iSCSI client (initiator) presence on all Kubernetes nodes is required. Choose the platform below to find the steps to verify if the iSCSI client is installed and running or to find the steps to install the iSCSI client.

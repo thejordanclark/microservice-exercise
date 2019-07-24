@@ -253,12 +253,12 @@ The same IP should be visible when viewing the kubernetes nodes with the wide op
 kubectl get node -o wide
 ```
 
-#### To all machines in the cluster, append '--insecure-registry <IP>:5000' to the docker service file.
+#### To all machines in the cluster, append '--insecure-registry 10.0.1.x:5000' to the docker service file.
 To the file '/lib/systemd/system/docker.service'
 
 the line that starts with `ExecStart=` should look like with the adjusted IP address:
 <br>
-`ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry 10.0.1.100:5000`
+`ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry 10.0.1.x:5000`
 
 You can use vim or nano to edit that file.
 
