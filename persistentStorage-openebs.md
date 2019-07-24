@@ -6,7 +6,8 @@ OpenEBS provides block volume support through the iSCSI protocol. Therefore, the
 
 ```bash
 sudo apt-get install -y open-iscsi
-sudo service open-iscsi restart
+sudo systemctl enable iscsid
+sudo systemctl start iscsid
 ```
 
 Verify that the initiator name is configured and the iSCSI services is running.
