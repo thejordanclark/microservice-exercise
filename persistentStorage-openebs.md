@@ -20,7 +20,7 @@ systemctl status iscsid
 
 OpenEBS can be installed on an existing Kubernetes cluster by applying the openebs-operator.yaml file.
 ```bash
-kubectl apply -f https://openebs.github.io/charts/openebs-operator-1.0.0.yaml
+kubectl apply -f https://openebs.github.io/charts/openebs-operator-1.9.0.yaml
 ```
 
 We can verify the status of tho OpenEBS pods by looking at the pods in the openebs namespace.
@@ -50,12 +50,15 @@ spec:
     requests:
       storage: 5G
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
  name: jenkins
 spec:
  replicas: 1
+ selector:
+   matchLabels:
+     app: jenkins-app
  template:
   metadata:
    labels:
@@ -94,7 +97,7 @@ spec:
 ### percona-mysql-pvc.yaml
 ```yaml
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: percona
@@ -140,8 +143,8 @@ spec:
           persistentVolumeClaim:
             claimName: demo-vol1-claim
 ---
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: demo-vol1-claim
 spec:
