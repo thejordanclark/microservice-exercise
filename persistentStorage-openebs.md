@@ -93,6 +93,7 @@ spec:
   type: NodePort
 ```
 
+_Note: You can connect to Jenkins via the NodePort.  The initial password can be found in the standard output of the jenkins pod.  Use `kubectl logs` to get the password._ 
 
 ### percona-mysql-pvc.yaml
 ```yaml
