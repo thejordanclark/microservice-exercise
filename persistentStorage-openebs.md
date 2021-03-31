@@ -28,6 +28,11 @@ We can verify the status of tho OpenEBS pods by looking at the pods in the opene
 kubectl get pods -n openebs -o wide
 ```
 
+To set 'openebs-hostpath' as the default storageClass run this command.
+```bash
+kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
 ## Usage
 
 Within the labs we will focus on using the simple `openebs-hostpath` storageClass for persistentStorage.  To do this make sure that PersistentVolumeClaims specs contain `storageClassName: openebs-hostpath` or set a label on the PersistentVolumeClaim to `volume.beta.kubernetes.io/storage-class: openebs-hostpath`.  I have included two example deployments utilizing OpenEBS hostpath persistent volumes.
@@ -93,7 +98,7 @@ spec:
   type: NodePort
 ```
 
-_Note: You can connect to Jenkins via the NodePort.  The initial password can be found in the standard output of the jenkins pod.  Use `kubectl logs` to get the password._ 
+_Note: You can connect to Jenkins via the NodePort.  The initial password can be found in the standard output of the jenkins pod.  Use `kubectl logs` to get the password._
 
 ### percona-mysql-pvc.yaml
 ```yaml
